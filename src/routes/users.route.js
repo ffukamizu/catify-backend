@@ -7,7 +7,6 @@ import { postSignIn, postSignUp } from '../controllers/users.controller.js';
 
 const usersRouter = Router();
 
-usersRouter.get('/users', getUsers);
 usersRouter.post('/signup', validateSchema(schemaSignUp), postSignUp);
 usersRouter.post('/signin', validateSchema(schemaSignIn), postSignIn);
 
