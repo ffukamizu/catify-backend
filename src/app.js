@@ -8,9 +8,13 @@ const PORT = process.env.SERVER_PORT || 5000;
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
-
+app.use(
+    cors({
+        origin: 'https://catify-front.vercel.app',
+        credentials: false, 
+    })
+);
 app.listen(PORT, () => {
     console.log(`Server online, running on port: ${PORT}`);
 });
