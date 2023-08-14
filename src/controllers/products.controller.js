@@ -1,8 +1,32 @@
-import { insertProducts, selectProducts } from '../repositories/products.repository';
+import { insertProducts, selectProducts, selectProductsById, selectProductsList } from '../repositories/products.repository';
 
 async function getProducts(req, res) {
     try {
         const products = await selectProducts();
+
+        res.status(201).send(products.rows);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+
+async function getProductsById(req, res) {
+    const { id } = req.params;
+
+    try {
+        const products = await selectProductsById(id);
+
+        res.status(201).send(products.rows[0]);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+
+async function getProductsList(req, res) {
+    const { id } = req.params;
+
+    try {
+        const products = await selectProductsList(id);
 
         res.status(201).send(products.rows);
     } catch (err) {
@@ -22,4 +46,4 @@ async function postProducts(req, res) {
     }
 }
 
-export { getProducts, postProducts };
+export { getProducts, getProductsById, getProductsList, postProducts };

@@ -1,5 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 import { addUser, getUserByEmail, userOnline } from '../repositories/users.repository.js';
 
@@ -26,7 +29,10 @@ async function postSignIn(req, res) {
 
         await userOnline(user.rows[0].id, token);
 
-        res.status(200).send({ token });
+        res.status(200).send({
+            id: user.rows[0].id,
+            token: token,
+        });
     } catch (error) {
         res.status(500).send(error.message);
     }
