@@ -1,4 +1,4 @@
-import { insertProducts, selectProducts, selectProductsById, selectProductsList } from '../repositories/products.repository';
+import { insertProducts, selectProducts, selectProductsById, selectProductsList } from '../repositories/products.repository.js';
 
 async function getProducts(req, res) {
     try {
