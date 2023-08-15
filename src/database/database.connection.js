@@ -17,7 +17,7 @@ try {
     await db.connect();
     console.log('Database online');
 } catch (err) {
-    (err) => console.log('ERROR:', err.message || err);
+    console.log('ERROR:', err.message || err);
 }
 
-export default db;
+export { db };

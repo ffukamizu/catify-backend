@@ -1,4 +1,4 @@
-import db from '../database/database.connection.js';
+import { db } from '../database/database.connection.js';
 
 async function getUserByEmail(email) {
     return db.query(`SELECT * FROM users WHERE users.email= $1;`, [email]);
