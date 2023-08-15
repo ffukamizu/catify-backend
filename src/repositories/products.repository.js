@@ -38,20 +38,29 @@ async function selectProductsList(id) {
     );
 }
 
-async function insertProducts(name, description, photo, user_id) {
-    return db.query(
-        `INSERT INTO 
-            products ("name", "description", "photo", "user_id")
-        VALUES
-            ($1, $2, $3, $4)
-        ON CONFLICT ("name", "user_id") DO UPDATE
-        SET
-            "description" = EXCLUDED.description,
-            "photo" = EXCLUDED.photo;
-        `,
-        [name, description, photo, user_id]
-    );
+async function insertOrUpdateProducts(name, description, photo, user_id) {
+    try {
+        await db.query(
+            `INSERT INTO 
+                products ("name", "description", "photo", "user_id")
+            VALUES
+                ($1, $2, $3, $4);
+            `,
+            [name, description, photo, user_id]
+        );
+    } catch (error) {
+        if (error.code === '23505') {
+            await db.query(
+                `UPDATE products
+                SET "description" = $2, "photo" = $3
+                WHERE "name" = $1 AND "user_id" = $4;
+                `,
+                [name, description, photo, user_id]
+            );
+        } else {
+            throw error;
+        }
+    }
 }
-
 
 export { selectProducts, selectProductsById, selectProductsList, insertProducts };
