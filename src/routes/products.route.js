@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import validateSchema from '../middlewares/validateSchema.middleware.js';
+import validateAuth from '../middlewares/validateAuth.middleware.js';
 import schemaProducts from '../schemas/products.schema.js';
 import { getProducts, getProductsById, getProductsList, postProducts } from '../controllers/products.controller.js';
 
