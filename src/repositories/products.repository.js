@@ -43,10 +43,15 @@ async function insertProducts(name, description, photo, user_id) {
         `INSERT INTO 
             products ("name", "description", "photo", "user_id")
         VALUES
-            ($1, $2, $3, $4);
+            ($1, $2, $3, $4)
+        ON CONFLICT ("name", "user_id") DO UPDATE
+        SET
+            "description" = EXCLUDED.description,
+            "photo" = EXCLUDED.photo;
         `,
         [name, description, photo, user_id]
     );
 }
+
 
 export { selectProducts, selectProductsById, selectProductsList, insertProducts };
