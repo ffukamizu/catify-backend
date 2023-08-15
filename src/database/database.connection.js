@@ -15,7 +15,7 @@ const db = new Pool(configDatabase);
 
 try {
     await db.connect();
-    console.log('PostGreSQL DataBase connected successfully !');
+    console.log('Database online');
 } catch (err) {
     (err) => console.log('ERROR:', err.message || err);
 }
