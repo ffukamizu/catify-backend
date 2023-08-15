@@ -38,7 +38,7 @@ async function selectProductsList(id) {
     );
 }
 
-async function insertOrUpdateProducts(name, description, photo, user_id) {
+async function insertProducts(name, description, photo, user_id) {
     try {
         await db.query(
             `INSERT INTO 
