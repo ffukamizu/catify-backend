@@ -9,7 +9,7 @@ async function addUser(email, hash, cpf, phone) {
 }
 
 async function userOnline(id, token) {
-    return db.query(`INSERT INTO user_login ("user_id", token) VALUES ($1, $2);`, [id, token]);
+    return db.query(`INSERT INTO user_login ("user_id", "token") VALUES ($1, $2);`, [id, token]);
 }
 
 async function getUser(id) {
