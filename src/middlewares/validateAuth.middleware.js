@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { getUserByAll } from '../repositories/users.repository.js';
+import { getUser } from '../repositories/users.repository.js';
 
 export default async function validateAuth(req, res, next) {
     const { authorization } = req.headers;
@@ -9,9 +9,9 @@ export default async function validateAuth(req, res, next) {
     if (!token) return res.sendStatus(401);
 
     try {
-        const { id, email } = jwt.verify(token, process.env.JWT_SECRET);
+        const { id } = jwt.verify(token, process.env.JWT_SECRET);
 
-        const user = await getUserByAll(id, email);
+        const user = await getUser(id);
         if (user.rowCount === 0) return res.status(401).send('Invalid Token');
 
         delete user.rows[0].email;

@@ -12,8 +12,8 @@ async function userOnline(id, token) {
     return db.query(`INSERT INTO user_login ("user_id", token) VALUES ($1, $2);`, [id, token]);
 }
 
-async function getUserByAll(id, email) {
-    return db.query(`SELECT * FROM users WHERE users.id= $1 AND users.email= $2;`, [id, email]);
+async function getUser(id) {
+    return db.query(`SELECT * FROM users WHERE users.id= $1;`, [id]);
 }
 
-export { getUserByEmail, addUser, userOnline, getUserByAll };
+export { getUserByEmail, addUser, userOnline, getUser };
