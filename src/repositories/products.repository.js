@@ -39,28 +39,14 @@ async function selectProductsList(id) {
 }
 
 async function insertProducts(name, description, photo, user_id) {
-    try {
-        await db.query(
-            `INSERT INTO 
-                products ("name", "description", "photo", "user_id")
-            VALUES
-                ($1, $2, $3, $4);
-            `,
-            [name, description, photo, user_id]
-        );
-    } catch (error) {
-        if (error.code === '23505') {
-            await db.query(
-                `UPDATE products
-                SET "description" = $2, "photo" = $3
-                WHERE "name" = $1 AND "user_id" = $4;
-                `,
-                [name, description, photo, user_id]
-            );
-        } else {
-            throw error;
-        }
-    }
+    return db.query(
+        `INSERT INTO 
+            products ("name", "description", "photo", user_id)
+        VALUES
+            ($1, $2, $3, $4);
+        `,
+        [name, description, photo, user_id]
+    );
 }
 
 export { selectProducts, selectProductsById, selectProductsList, insertProducts };
